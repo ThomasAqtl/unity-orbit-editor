@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Components;
-using Objects;
-using Unity.VisualScripting;
+﻿using System.Collections.Generic;
+using OrbitEditor.Scripts.Components;
+using OrbitEditor.Scripts.Objects;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Components
+namespace OrbitEditor.Scripts.Components
 {
     public class OrbitSystem : MonoBehaviour
     {

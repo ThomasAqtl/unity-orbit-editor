@@ -1,8 +1,6 @@
-
 using System;
-using UnityEngine.Serialization;
 
-namespace Objects
+namespace OrbitEditor.Scripts.Objects
 {
     [Serializable]
     public class Orbit

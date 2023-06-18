@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Objects
+namespace OrbitEditor.Scripts.Objects
 {
     [Serializable]
     public class Ellipsis

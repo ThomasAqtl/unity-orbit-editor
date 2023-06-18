@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace Components
+namespace OrbitEditor.Scripts.Components
 {
     [ExecuteAlways]
     [DisallowMultipleComponent]
