@@ -7,7 +7,10 @@ namespace OrbitEditor.Scripts.Components
     [DisallowMultipleComponent]
     public class FollowPath : MonoBehaviour
     {
+        [Tooltip("The set of points describing the path to follow.")]
         public Vector3[] path;
+
+        [Tooltip("The time it takes in second for the path to be completed once.")]
         public float period;
 
         private int _index;
@@ -21,7 +24,7 @@ namespace OrbitEditor.Scripts.Components
         {
             var resolution = path.Length;
             var time = Time.time * resolution / period % resolution;
-            _index = (int)Mathf.Floor(time); 
+            _index = (int)Mathf.Floor(time);
             var lerp = time - _index;
             var last = GetPreviousPoint();
             var next = GetNextPoint();
@@ -32,7 +35,7 @@ namespace OrbitEditor.Scripts.Components
         {
             return _index + 1 < path.Length ? path[_index + 1] : path[0];
         }
-        
+
         private Vector3 GetPreviousPoint()
         {
             return path[_index];

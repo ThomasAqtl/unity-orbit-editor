@@ -1,26 +1,45 @@
 using System;
+using UnityEngine;
 
 namespace OrbitEditor.Scripts.Objects
 {
     [Serializable]
     public class Orbit
     {
-        public Ellipsis trajectory;
-        public float period;
-        public bool lookAtCenter;
+        [SerializeField] private Ellipsis trajectory;
+        [SerializeField] private float period;
+        [SerializeField] private bool tidalLocking;
 
         public Orbit()
         {
-            trajectory = new Ellipsis();
-            period = 10f;
-            lookAtCenter = true;
+            Trajectory = new Ellipsis();
+            Period = 10f;
+            TidalLocking = true;
         }
         
-        public Orbit(Ellipsis trajectory, float period, bool lookAtCenter)
+        public Orbit(Ellipsis trajectory, float period, bool tidalLocking)
         {
-            this.trajectory = trajectory;
-            this.period = period;
-            this.lookAtCenter = lookAtCenter;
+            Trajectory = trajectory;
+            Period = period;
+            TidalLocking = tidalLocking;
+        }
+
+        public Ellipsis Trajectory
+        {
+            get => trajectory;
+            set => trajectory = value;
+        }
+
+        public float Period
+        {
+            get => period;
+            set => period = value;
+        }
+
+        public bool TidalLocking
+        {
+            get => tidalLocking;
+            set => tidalLocking = value;
         }
     }
 }

@@ -6,48 +6,100 @@ namespace OrbitEditor.Scripts.Objects
     [Serializable]
     public class Ellipsis
     {
-        public readonly float TwoPI = 2 * Mathf.PI;
+        public readonly float TwoPI = 6.28318530f;
         
-        public Vector3 center;
-        public Vector3 angle;
-        public float semiMinorAxis;
-        public float semiMajorAxis;
-        public int resolution;
+        [SerializeField] private Vector3 center;
+        [SerializeField] private Vector3 angle;
+        [SerializeField] private float semiMinorAxis;
+        [SerializeField] private float semiMajorAxis;
+        [SerializeField] private int resolution;
 
         public Ellipsis()
         {
-            center = Vector3.zero;
-            angle = Vector3.zero;
-            semiMinorAxis = 5f;
-            semiMajorAxis = 10f;
-            resolution = 100;
+            Center = Vector3.zero;
+            Angle = Vector3.zero;
+            SemiMinorAxis = 5f;
+            SemiMajorAxis = 10f;
+            Resolution = 100;
         }
 
         public Ellipsis(Vector3 center, Vector3 angle, float semiMinorAxis, float semiMajorAxis, int resolution)
         {
-            this.center = center;
-            this.angle = angle;
-            this.semiMinorAxis = semiMinorAxis;
-            this.semiMajorAxis = semiMajorAxis;
-            this.resolution = resolution;
+            Center = center;
+            Angle = angle;
+            SemiMinorAxis = semiMinorAxis;
+            SemiMajorAxis = semiMajorAxis;
+            Resolution = resolution;
         }
-
-        public Vector3[] GetTrajectory()
+        
+        public Vector3[] ComputePoints()
         {
-            var result = new Vector3[resolution];
-            var f = 2 * Mathf.PI / resolution;
-            var xAngle = Mathf.Deg2Rad * angle.x;
-            var zAngle = Mathf.Deg2Rad * angle.z;
-            for (var i = 0; i < resolution; i++)
+            var result = new Vector3[Resolution];
+            var f = TwoPI / Resolution;
+            var xAngle = Mathf.Deg2Rad * Angle.x;
+            var zAngle = Mathf.Deg2Rad * Angle.z;
+            for (var i = 0; i < Resolution; i++)
             {
-                var delta = resolution - i;
-                var x = semiMajorAxis * Mathf.Cos(f * delta) * Mathf.Cos(zAngle);
-                var y = semiMinorAxis * Mathf.Sin(xAngle) * Mathf.Sin(f * i) +
-                        semiMajorAxis * Mathf.Sin(zAngle) * Mathf.Cos(f * i);
-                var z = semiMinorAxis * Mathf.Sin(f * delta) * Mathf.Cos(xAngle);
-                result[i] = center + new Vector3(x, y, z);
+                var delta = Resolution - i;
+                var x = SemiMajorAxis * Mathf.Cos(f * delta) * Mathf.Cos(zAngle);
+                var y = SemiMinorAxis * Mathf.Sin(xAngle) * Mathf.Sin(f * i) +
+                        SemiMajorAxis * Mathf.Sin(zAngle) * Mathf.Cos(f * i);
+                var z = SemiMinorAxis * Mathf.Sin(f * delta) * Mathf.Cos(xAngle);
+                result[i] = Center + new Vector3(x, y, z);
             }
             return result;
         }
+
+        public Vector3 Center
+        {
+            get => center;
+            set => center = value;
+        }
+
+        public Vector3 Angle
+        {
+            get => angle;
+            set => angle = value;
+        }
+
+        public float SemiMinorAxis
+        {
+            get => semiMinorAxis;
+            set
+            {
+                if (value < 0)
+                {
+                    Debug.LogWarning($"Cannot set ellipsis' semi minor axis to {value}, it must be positive.");
+                }
+                semiMinorAxis = Mathf.Abs(value);   
+            }
+        }
+
+        public float SemiMajorAxis
+        {
+            get => semiMajorAxis;
+            set
+            {
+                if (value < 0)
+                {
+                    Debug.LogWarning($"Cannot set ellipsis' semi major axis to {value}, it must be positive.");
+                }
+                semiMajorAxis = Mathf.Abs(value);
+            }
+        }
+
+        public int Resolution
+        {
+            get => resolution;
+            set
+            {
+                if (value <= 1)
+                {
+                    Debug.LogWarning($"Cannot set ellipsis resolution to {value}, the minimum is 2");
+                }
+                resolution = Mathf.Max(2, value);   
+            }
+        }
+
     }
 }

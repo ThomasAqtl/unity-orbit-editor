@@ -8,9 +8,7 @@ namespace OrbitEditor.Scripts.Components
     [DisallowMultipleComponent]
     public class LookAt : MonoBehaviour
     {
-        [Tooltip("The transform to look at.")] [SerializeField]
-        private Transform target;
-        public Transform Target => target;
+        [Tooltip("The transform to look at.")] public Transform target;
 
         private bool _validTarget;
 

@@ -18,11 +18,11 @@ namespace OrbitEditor.Scripts.Components
             var orbitSystemObj = new GameObject
             {
                 name = "Orbit system",
-                transform = {parent = root, position = Vector3.zero, rotation = Quaternion.identity}
+                transform = { parent = root, position = Vector3.zero, rotation = Quaternion.identity }
             };
             orbitSystemObj.AddComponent<OrbitSystem>();
         }
-        
+
         private void Reset()
         {
             while (transform.childCount > 0)
@@ -35,7 +35,7 @@ namespace OrbitEditor.Scripts.Components
         {
             if (orbits == null) orbits = new List<Orbit>();
             orbits.Add(new Orbit());
-            
+
             var orbitObject = new GameObject
             {
                 name = "Orbit",
@@ -51,17 +51,17 @@ namespace OrbitEditor.Scripts.Components
         private void AddOrbitComponents(GameObject orbitObject, Orbit orbit)
         {
             var followPath = orbitObject.AddComponent<FollowPath>();
-            followPath.path = orbit.trajectory.GetTrajectory();
-            followPath.period = orbit.period;
-            
+            followPath.path = orbit.Trajectory.ComputePoints();
+            followPath.period = orbit.Period;
+
             var lookAt = orbitObject.AddComponent<LookAt>();
             lookAt.SetTarget(transform);
-            lookAt.enabled = orbit.lookAtCenter;
+            lookAt.enabled = orbit.TidalLocking;
         }
-        
+
         public void Refresh()
         {
-            while (transform.childCount > 0) 
+            while (transform.childCount > 0)
                 DestroyImmediate(transform.GetChild(0).gameObject);
 
             _orbitsTransforms = new List<Transform>();
@@ -84,7 +84,7 @@ public class OrbitSystemEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        var orbitSystem = (OrbitSystem) target;
+        var orbitSystem = (OrbitSystem)target;
         EditorGUI.BeginChangeCheck();
         base.OnInspectorGUI();
         if (EditorGUI.EndChangeCheck())
