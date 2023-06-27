@@ -214,7 +214,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &769680220
+--- !u!1 &1021958272
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,8 +222,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 769680222}
-  - component: {fileID: 769680221}
+  - component: {fileID: 1021958274}
+  - component: {fileID: 1021958273}
   m_Layer: 0
   m_Name: Orbit system
   m_TagString: Untagged
@@ -231,13 +231,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &769680221
+--- !u!114 &1021958273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769680220}
+  m_GameObject: {fileID: 1021958272}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d82def181d1642e9bbb1746ef172f2df, type: 3}
@@ -251,24 +251,25 @@ MonoBehaviour:
       semiMajorAxis: 10
       resolution: 100
     period: 10
-    lookAtCenter: 1
---- !u!4 &769680222
+    tidalLocking: 1
+    clockwise: 1
+--- !u!4 &1021958274
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769680220}
+  m_GameObject: {fileID: 1021958272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1519376863}
+  - {fileID: 1269860159}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1519376862
+--- !u!1 &1269860158
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,9 +277,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1519376863}
-  - component: {fileID: 1519376865}
-  - component: {fileID: 1519376864}
+  - component: {fileID: 1269860159}
+  - component: {fileID: 1269860161}
+  - component: {fileID: 1269860160}
   m_Layer: 0
   m_Name: Orbit
   m_TagString: Untagged
@@ -286,41 +287,41 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1519376863
+--- !u!4 &1269860159
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519376862}
-  m_LocalRotation: {x: -0, y: -0.25048214, z: -0, w: 0.96812123}
-  m_LocalPosition: {x: 2.6709783, y: 0, z: -4.816176}
+  m_GameObject: {fileID: 1269860158}
+  m_LocalRotation: {x: -0, y: 0.26407504, z: -0, w: 0.96450216}
+  m_LocalPosition: {x: -2.8367476, y: 0, z: -4.7920957}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 769680222}
+  m_Father: {fileID: 1021958274}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1519376864
+--- !u!114 &1269860160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519376862}
+  m_GameObject: {fileID: 1269860158}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfe9f4d3a43d49c1ab6e5c2ed750db63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 769680222}
---- !u!114 &1519376865
+  target: {fileID: 1021958274}
+--- !u!114 &1269860161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519376862}
+  m_GameObject: {fileID: 1269860158}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1929e365c74a4405bd94ff5cc5e7da09, type: 3}
@@ -428,6 +429,7 @@ MonoBehaviour:
   - {x: 9.921147, y: 0, z: 0.6266662}
   - {x: 9.980268, y: 0, z: 0.3139526}
   period: 10
+  clockwise: 1
 --- !u!1 &2061954451
 GameObject:
   m_ObjectHideFlags: 0

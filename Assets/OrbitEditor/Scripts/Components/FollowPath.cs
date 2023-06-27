@@ -13,6 +13,8 @@ namespace OrbitEditor.Scripts.Components
         [Tooltip("The time it takes in second for the path to be completed once.")]
         public float period;
 
+        public bool clockwise;
+
         private int _index;
 
         public void LateUpdate()
@@ -33,12 +35,14 @@ namespace OrbitEditor.Scripts.Components
 
         private Vector3 GetNextPoint()
         {
-            return _index + 1 < path.Length ? path[_index + 1] : path[0];
+            if (clockwise) return _index + 1 < path.Length ? path[_index + 1] : path[0];
+            else return path.Length > _index ? path[^_index] : path[^1];
         }
 
         private Vector3 GetPreviousPoint()
         {
-            return path[_index];
+            if (clockwise) return path[_index];
+            else return path.Length > _index ? path[path.Length - _index - 1] : path[0]; 
         }
 
         private bool ValidateData()

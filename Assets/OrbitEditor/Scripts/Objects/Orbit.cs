@@ -9,19 +9,22 @@ namespace OrbitEditor.Scripts.Objects
         [SerializeField] private Ellipsis trajectory;
         [SerializeField] private float period;
         [SerializeField] private bool tidalLocking;
+        [SerializeField] private bool clockwise;
 
         public Orbit()
         {
             Trajectory = new Ellipsis();
             Period = 10f;
             TidalLocking = true;
+            Clockwise = true;
         }
         
-        public Orbit(Ellipsis trajectory, float period, bool tidalLocking)
+        public Orbit(Ellipsis trajectory, float period, bool tidalLocking, bool clockwise)
         {
             Trajectory = trajectory;
             Period = period;
             TidalLocking = tidalLocking;
+            Clockwise = clockwise;
         }
 
         public Ellipsis Trajectory
@@ -40,6 +43,12 @@ namespace OrbitEditor.Scripts.Objects
         {
             get => tidalLocking;
             set => tidalLocking = value;
+        }
+
+        public bool Clockwise
+        {
+            get => clockwise;
+            set => clockwise = value;
         }
     }
 }

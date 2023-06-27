@@ -3,6 +3,7 @@ using OrbitEditor.Scripts.Components;
 using OrbitEditor.Scripts.Objects;
 using UnityEditor;
 using UnityEngine;
+using OrbitSystem = OrbitEditor.Scripts.Components.OrbitSystem;
 
 namespace OrbitEditor.Scripts.Components
 {
@@ -22,27 +23,38 @@ namespace OrbitEditor.Scripts.Components
             };
             orbitSystemObj.AddComponent<OrbitSystem>();
         }
-
+        
         private void Reset()
         {
-            while (transform.childCount > 0)
-                DestroyImmediate(transform.GetChild(0).gameObject);
-
+            DestroyAllOrbits();
             AddDefaultOrbit();
+        }
+        
+        public void DestroyAllOrbits()
+        {
+            if (_orbitsTransforms == null) return;
+            
+            for (var i = _orbitsTransforms.Count - 1; i >= 0; i--)
+            {
+                if (Application.isPlaying) Destroy(_orbitsTransforms[i].gameObject);
+                else DestroyImmediate(_orbitsTransforms[i].gameObject);
+            }
+
+            _orbitsTransforms = new List<Transform>();
         }
 
         public void AddDefaultOrbit()
         {
             if (orbits == null) orbits = new List<Orbit>();
             orbits.Add(new Orbit());
-
+            
             var orbitObject = new GameObject
             {
                 name = "Orbit",
                 transform = { parent = transform }
             };
+            
             AddOrbitComponents(orbitObject, orbits[^1]);
-
             if (_orbitsTransforms == null) _orbitsTransforms = new List<Transform>();
             _orbitsTransforms.Add(orbitObject.transform);
         }
@@ -53,6 +65,7 @@ namespace OrbitEditor.Scripts.Components
             var followPath = orbitObject.AddComponent<FollowPath>();
             followPath.path = orbit.Trajectory.ComputePoints();
             followPath.period = orbit.Period;
+            followPath.clockwise = orbit.Clockwise;
 
             var lookAt = orbitObject.AddComponent<LookAt>();
             lookAt.SetTarget(transform);
@@ -61,9 +74,7 @@ namespace OrbitEditor.Scripts.Components
 
         public void Refresh()
         {
-            while (transform.childCount > 0)
-                DestroyImmediate(transform.GetChild(0).gameObject);
-
+            DestroyAllOrbits();
             _orbitsTransforms = new List<Transform>();
             foreach (var orbit in orbits)
             {
